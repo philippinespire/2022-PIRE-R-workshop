@@ -69,7 +69,7 @@ In order to run the SSL pipeline and follow along with the workshop exercises, y
 4. Install a text editor. Our recommended free editors:
     * For Macs: the free version of [BBEdit](https://www.barebones.com/products/bbedit/)
     * For Windows (PCs): [Notepad++](https://notepad-plus-plus.org/downloads/)
-5. Install [R (v4.1.3)](https://www.r-project.org).
+5. Install [R (v4.1.3)](https://cran.r-project.org/bin/windows/base/old/).
 6. Install [RStudio](https://www.rstudio.com/products/rstudio/download/)
     * Once R and RStudio are installed, install the following packages (with all dependencies): tidyverse & adegenet.
 
