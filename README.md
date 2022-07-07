@@ -74,3 +74,6 @@ In order to run the SSL pipeline and follow along with the workshop exercises, y
     * Once R and RStudio are installed, install the following packages (with all dependencies): tidyverse & adegenet.
 
 ---
+
+# R Activities 
+[Base R Mind Expander](https://forms.gle/nE2CnAJj6rz8QVYo9)
