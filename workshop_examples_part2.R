@@ -23,16 +23,18 @@ fastqc_tbl <- read_tsv(file = "fastqc_data.tsv",
                                         percent_duplication = col_double()))
 
 
-#### Subseting Your Data ####
+#### Subsetting Your Data ####
 
 fastqc_tbl %>%
   select(id,
          total_sequences)
+
 fastqc_tbl %>%
   select(-starts_with("percent"))
 
 fastqc_tbl %>%
   filter(total_sequences >= 50000000)
+
 fastqc_tbl %>%
   filter(percent_gc_content == 44 | percent_gc_content == 45,
          total_sequences <= 50000000 & total_sequences >= 30000000)
