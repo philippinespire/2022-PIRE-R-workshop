@@ -53,7 +53,7 @@ storms_ymdh <- function(DATA){
 # Function to plot PSMC using .psmc output
 # Modified from https://github.com/elhumble/SHO_analysis_2020/blob/master/scripts/plot_psmc.R
 
-psmc.result<-function(file,i.iteration=25,mu=1e-8,s=100,g=1)
+psmc.result<-function(file,i.iteration=25,mu=1e-8,s=100,g=4)
 {
   X<-scan(file=file,what="",sep="\n",quiet=TRUE)
   
