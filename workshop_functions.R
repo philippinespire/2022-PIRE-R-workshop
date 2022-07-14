@@ -1,7 +1,8 @@
 # Package names
 packages <- c("tidyverse", 
               "janitor", 
-              "lubridate")
+              "lubridate",
+              "qqplotr")
 
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -90,5 +91,50 @@ psmc.result<-function(file,i.iteration=25,mu=1e-8,s=100,g=4)
   
   data.frame(YearsAgo,Ne,mu,g)
   #plot(Ne~YearsAgo)
+}
+
+#### Regression with ggplot ####
+
+ggplotRegression <- function(fit, formula = NULL, COLOR = NULL) {
+  
+  require(ggplot2)
+  
+  ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1], color = COLOR)) + 
+    geom_point(size = 2) +
+    stat_smooth(method = "lm", formula = formula, col = "red", se = FALSE) +
+    labs(subtitle = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                          "Intercept =",signif(fit$coef[[1]],5 ),
+                          " Slope =",signif(fit$coef[[2]], 5),
+                          " P =",signif(summary(fit)$coef[2,4], 5)))+
+    theme_bw()+
+    theme(legend.position = "none")
+}
+
+#### qqplot ####
+
+ggqqplot <- function(DATA = .,
+                     SAMPLE,
+                     CONF1 = 0.95,
+                     CONF2 = 0.975){
+  
+  require(ggplot2)
+  require(qqplotr)
+  
+  DATA %>%
+    ggplot(aes(sample = {{SAMPLE}})) +
+    stat_qq_point(size = 1) +
+    stat_qq_line() +
+    stat_qq_band(conf = CONF1, 
+                 color = "green",
+                 alpha = 0,
+                 linetype = "dashed",
+                 size = 0.8) +
+    stat_qq_band(conf = CONF2, 
+                 color = "red",
+                 alpha = 0,
+                 linetype = "dashed",
+                 size = 0.8) +
+    theme_classic() + 
+    labs(x = "Theoretical Quantiles", y = "Sample Quantiles")
 }
 
