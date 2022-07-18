@@ -1,5 +1,5 @@
 #### 1 ####
-#integer, logical, character, complex, numeric
+#integer, logical, character, factor, numeric
 
 #### 2 ####
 #c(), seq(), rep()
@@ -8,9 +8,7 @@
 my_vector <- seq(2, 100, 2)
 
 #### 4 ####
-(my_vector <- seq(2, 100, 2))
 print(my_vector)
-view(my_vector)
 my_vector
 
 #### 5 ####
@@ -20,6 +18,5 @@ my_vector_div_12 <- my_vector[my_vector %% 12 == 0]
 sum(my_vector_div_12)
 
 #### 7 ####
-my_vector[5] * my_vector[10] * my_vector[15]
-prod(my_vector[c(5, 10, 15)])
+my_vector[5] + my_vector[10] + my_vector[15]
 

@@ -21,19 +21,6 @@ stm %>%
   filter(year == 1998) %>%
   ggplot(aes(y = wind,
              x = ymdh,
-             colour = name))
-
-stm %>%
-  filter(year == 1998) %>%
-  ggplot(aes(y = wind,
-             x = ymdh,
-             colour = name)) + 
-  geom_point()
-
-stm %>%
-  filter(year == 1998) %>%
-  ggplot(aes(y = wind,
-             x = ymdh,
              colour = name)) + 
   geom_point() + 
   geom_line() 

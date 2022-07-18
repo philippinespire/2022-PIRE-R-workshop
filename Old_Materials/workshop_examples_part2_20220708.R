@@ -6,9 +6,21 @@ library("tidyverse")
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #### Reading in data ####
-fastqc_tbl <- read_tsv("fastqc_data.tsv")
+read_tsv("fastqc_data.tsv")
 read_delim("fastqc_data.tsv", 
            delim = "\t")
+fastqc_tbl <- read_tsv(file = "fastqc_data.tsv", 
+                       skip = 1,
+                       col_names = c("id",
+                                     "total_sequences",
+                                     "percent_failed",
+                                     "percent_gc_content",
+                                     "percent_duplication"),
+                       col_types = cols(id = col_character(),
+                                        total_sequences = col_double(),
+                                        percent_failed = col_double(),
+                                        percent_gc_content = col_double(),
+                                        percent_duplication = col_double()))
 
 
 #### Subsetting Your Data ####
@@ -71,6 +83,21 @@ fastqc_tbl %>%
     unite("id", 
           species:wga,
           sep = "-"))
+
+#### Pivoting Data in R ####
+
+(fastqc_tbl_long <- fastqc_tbl %>% 
+  pivot_longer(cols = c(total_sequences, 
+                        percent_failed, 
+                        percent_gc_content, 
+                        percent_duplication),
+               names_to = "metrics",
+               values_to = "values"))
+
+(fastqc_tbl_wide <- fastqc_tbl_long %>%
+  pivot_wider(id_cols = id, 
+              names_from = metrics,
+              values_from = values))
 
 #### Summarising a Tibble ####
 

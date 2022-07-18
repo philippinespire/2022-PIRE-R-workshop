@@ -1,46 +1,27 @@
+
+library("tidyverse")
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 #### Activity 1 ####
 
 read_csv("davis_practive.csv")
 
-davis <- read_csv("davis_practive.csv")
+davis_from_car <- read_csv("davis_practive.csv")
 
-davis <- read_csv("davis_practive.csv",
-                  col_types = cols(name = col_character(),
-                                   haircolor = col_character(),
-                                   sex = col_character(),
-                                   weight = col_double(),
-                                   height = col_double(),
-                                   repwt = col_double(),
-                                   repht = col_double()))
-
-davis_drop_na <- read_csv("davis_practive.csv",
-                          col_types = cols(name = col_character(),
-                                           haircolor = col_character(),
-                                           sex = col_character(),
-                                           weight = col_double(),
-                                           height = col_double(),
-                                           repwt = col_double(),
-                                           repht = col_double())) %>%
+davis <- read_csv("davis_practive.csv") %>%
   drop_na()
 
-#### Activity 2 ####
-
-davis_drop_na %>% 
-  select(-height, -repht)
-
-davis_drop_na %>% 
+davis %>% 
   select(-height, -repht) %>%
   filter(sex == "F",
          haircolor == "brown")
 
-davis_drop_na %>% 
-  select(-height, -repht) %>%
-  filter(sex == "F",
-         haircolor == "brown") %>%
-  mutate(mean_weight = (weight + repwt)/2,
-         weight_difference = weight - repwt)
+# drop_na removes all rows where there is an na in any column.
 
-davis_drop_na %>% 
+#### Activity 2 ####
+
+davis %>% 
   select(-height, -repht) %>%
   filter(sex == "F",
          haircolor == "brown") %>%
@@ -52,56 +33,7 @@ davis_drop_na %>%
 
 #### Assignment 3 ####
 
-davis_drop_na %>% 
-  separate(name,
-           into = c("surname",
-                    "given_name"),
-           sep = ", ",
-           remove = FALSE)
-
-davis_drop_na %>% 
-  separate(name,
-           into = c("surname",
-                    "given_name"),
-           sep = ", ",
-           remove = FALSE) %>%
-  unite(haircolor_sex,
-        c("haircolor", 
-          "sex"),
-        sep = "_",
-        remove = FALSE)
-
-davis_drop_na %>% 
-  separate(name,
-           into = c("surname",
-                    "given_name"),
-           sep = ", ",
-           remove = FALSE) %>%
-  unite(haircolor_sex,
-        c("haircolor", 
-          "sex"),
-        sep = "_",
-        remove = FALSE) %>%
-  relocate(name, haircolor_sex)
-
-#### Assignment 4 ####
-
-(davis_longer <- davis_drop_na %>%
-  pivot_longer(cols = c(weight,
-                        repwt,
-                        height,
-                        repht),
-               names_to = "metric",
-               values_to = "values"))
-
-(davis_wider <- davis_longer %>%
-  pivot_wider(names_from = "metric",
-              values_from = "values"))
-
-#### Assignment 5 ####
-
-davis_drop_na %>% 
-  select(-height, -repht) %>%
+davis %>%
   mutate(mean_weight = (weight + repwt)/2,
          weight_difference = weight - repwt) %>%
   group_by(haircolor,
